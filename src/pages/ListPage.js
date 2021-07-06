@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import {Card, Button, Pagination,Form, Row, Col, Toast} from "react-bootstrap";
+import {Card, Button, Form, Row, Col} from "react-bootstrap";
 import {BsArrowDownShort, BsArrowUpShort, BsPlus, BsXCircle} from "react-icons/bs";
 import {Link} from "react-router-dom";
 import ReactPaginate from 'react-paginate';
-
 import PrimaryCard from "../components/PrimaryCard";
 
 export default class ListPage extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -78,16 +78,12 @@ export default class ListPage extends Component {
                     return new Date(a.points) - new Date(b.points);
                 });*/
                 sortData = this.props.data.sort(function (a, b) {
-                    return new Date(a.points) - new Date(b.points);
+                    return b.points === a.points ? new Date(b.updated) - new Date(a.updated) : new Date(a.points) - new Date(b.points);
                 });
             }
             this.props.selectChange(sortData);
             this.receivedData();
         }
-    }
-
-    deleteCard = () => {
-
     }
 
     render() {

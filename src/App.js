@@ -21,7 +21,7 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        if (getDummyData() === null) {
+        if (getDummyData() === null || getDummyData().length == 0) {
             setDummyData([
                 {
                     id: 1,
@@ -132,6 +132,9 @@ export default class App extends Component {
                     updated: '07.03.2021 17:50:23'
                 }
             ]);
+            this.setState({
+                data: getDummyData()
+            });
         }
     }
 
