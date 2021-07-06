@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import './styles/cards.scss'
-import {Container, Modal, Button, Toast, Row, Col} from "react-bootstrap";
+import {Container, Modal, Button, Toast} from "react-bootstrap";
 import AddPage from './pages/AddPage';
 import ListPage from './pages/ListPage';
 import {getDateNow} from "./helpers/getDate"
@@ -21,7 +21,7 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        if (getDummyData() === null || getDummyData().length == 0) {
+        if (getDummyData() === null || getDummyData().length === 0) {
             setDummyData([
                 {
                     id: 1,
@@ -147,7 +147,7 @@ export default class App extends Component {
     }
 
     deleteCard = async () => {
-        let filterData = this.state.data.filter(x => x.id != this.state.cardData.id);
+        let filterData = this.state.data.filter(x => x.id !== this.state.cardData.id);
         setDummyData(filterData);
         await this.setState({
             data: filterData,
@@ -180,10 +180,13 @@ export default class App extends Component {
     }
 
     decreasePoints = async (cardData) => {
-        cardData.points -= 1;
-        cardData.updated = getDateNow(new Date());
-        this.state.data.splice(this.state.data.findIndex(x => x.id == cardData.id), 1, cardData);
-        setDummyData(this.state.data);
+        if (cardData.points != 0) {
+            cardData.points -= 1;
+            cardData.updated = getDateNow(new Date());
+            this.state.data.splice(this.state.data.findIndex(x => x.id == cardData.id), 1, cardData);
+            setDummyData(this.state.data);
+        }
+
         /*this.setState({
             cardData
         });*/

@@ -57,7 +57,7 @@ class AddPage extends Component {
     render() {
         console.log("ADD REnder");
         return (
-            <div>
+            <div className="border p-3 mt-3">
                 <Link to="/">Return to List</Link>
                 <h4>Add New Link</h4>
                 <Form noValidate onSubmit={this.handleSubmit} validated={this.state.validated}>

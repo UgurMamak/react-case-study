@@ -1,15 +1,17 @@
 .primary-card {
   position: relative;
   margin-bottom: 15px;
+  border-color: #ffd9e0;
 
   @media (min-width: 768px) {
     flex-direction: row;
   }
 
   &:hover {
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(#ffd9e0, 0.3);
     box-shadow: 5px 10px 8px #888888;
-    .delete-btn{
+
+    .delete-btn {
       visibility: visible;
     }
   }
@@ -44,22 +46,41 @@
     display: flex;
     justify-content: space-between;
     border-top: none;
-    background-color:transparent;
+    background-color: transparent;
   }
 
-
-  .card-title{
+  .card-title {
     display: flex;
     justify-content: space-between;
   }
 
-  .delete-btn{
+  .delete-btn {
     visibility: hidden;
     cursor: pointer;
   }
 
+  .updated-item{
+    font-size: 10px;
+  }
+
 }
 
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #940914;
+  border-color: #940914;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #7d080e !important;
+    border-color: #7d080e !important;
+    box-shadow: none !important;
+  }
+
+}
 
 .pagination {
   .page-link {
@@ -67,12 +88,29 @@
   }
 }
 
-
-.primary-toast{
+.primary-toast {
   position: fixed;
-  bottom:0;
+  bottom: 0;
 }
 
+.add-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color:#ffd9e0;
+  color:#940914;
+  fill: #940914;
+  font-size:40px;
+  transition: ease all .3s;
+
+  &:hover{
+    background-color:#940914 !important;
+    fill: #ffd9e0 !important;
+    color:#ffd9e0 !important;
+
+  }
+
+}
 
 .pagination {
   margin: 15px auto;
@@ -80,25 +118,31 @@
   list-style: none;
   outline: none;
 }
-.pagination > .active > a{
-  background-color: #47ccde ;
-  border-color: #47ccde ;
+
+.pagination > .active > a {
+  background-color: #47ccde;
+  border-color: #ffd9e0;
   color: #fff;
 }
-.pagination > li > a{
-  border: 1px solid #47ccde ;
+
+.pagination > li > a {
+  border: 1px solid #ffd9e0 ;
   padding: 5px 10px;
   outline: none;
   cursor: pointer;
 }
-.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
-  background-color: #47ccde ;
-  border-color: #47ccde;
-  outline: none ;
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+  background-color: #ffd9e0 ;
+  border-color: #ffd9e0;
+  color:#940914;
+  outline: none;
 }
-.pagination > li > a, .pagination > li > span{
+
+.pagination > li > a, .pagination > li > span {
   color: #47ccde
 }
-.pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
+
+.pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span {
   border-radius: unset
 }

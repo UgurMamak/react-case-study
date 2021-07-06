@@ -7,10 +7,9 @@ const PrimaryCard = ({item, deleteCardConfirm, increasePoints, receivedData, dec
         <Card className="primary-card">
             <Card.Header>
                 <div className="card-info">
-                    <span>{item.updated}</span>
-                    <span>{item.id}</span>
                     <span className="number">{item.points}</span>
                     <span className="text">POINTS</span>
+                    <span className="updated-item">Updated Date: {item.updated}</span>
                 </div>
             </Card.Header>
             <Card.Body>
