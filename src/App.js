@@ -1,136 +1,28 @@
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route
-} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import './styles/cards.scss'
-import {Container, Modal, Button, Toast, Row, Col, Form} from "react-bootstrap";
-
+import {Container, Modal, Button, Toast, Row, Col} from "react-bootstrap";
 import AddPage from './pages/AddPage';
 import ListPage from './pages/ListPage';
 import {getDateNow} from "./helpers/getDate"
-
-import React, {Component} from 'react';
+import {getDummyData, setDummyData} from "./helpers/dummyData";
 
 export default class App extends Component {
 
     state = {
-        data: JSON.parse(localStorage.getItem('data')).sort(function (a, b) {
+        data: getDummyData() ? getDummyData().sort(function (a, b) {
             return new Date(b.created) - new Date(a.created);
-        }) || [],
+        }) : [],
         showModal: false,
         showToast: false,
         cardData: {}
     }
 
     componentDidMount() {
-        if (!localStorage.getItem('data')) {
-            /*localStorage.setItem('data', JSON.stringify([
-                {
-                    id: 1,
-                    points: 6,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '2/07/2021 17:50:23',
-                    updated: '2/07/2021 17:50:23'
-                }, {
-                    id: 2,
-                    points: 5,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '2/07/2021 18:50:23',
-                    updated: '2/07/2021 17:50:23'
-                }, {
-                    id: 3,
-                    points: 3,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '2/06/2021 17:50:23',
-                    updated: '2/06/2021 17:50:23'
-                },
-                {
-                    id: 4,
-                    points: 6,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '2/06/2021 17:50:23',
-                    updated: '2/06/2021 17:50:23'
-                }, {
-                    id: 5,
-                    points: 6,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '2/05/2021 17:50:23',
-                    updated: '2/05/2021 17:50:23'
-                }, {
-                    id: 6,
-                    points: 6,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '2/03/2021 17:50:23',
-                    updated: '2/03/2021 17:50:23'
-                }, {
-                    id: 7,
-                    points: 6,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '2/02/2021 17:50:23',
-                    updated: '2/02/2021 17:50:23'
-                }, {
-                    id: 8,
-                    points: 6,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '4/07/2021 17:50:23',
-                    updated: '4/07/2021 17:50:23'
-                }, {
-                    id: 9,
-                    points: 6,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '20/06/2021 17:50:23',
-                    updated: '20/06/2021 17:50:23'
-                }, {
-                    id: 10,
-                    points: 6,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '13/05/2021 17:50:23',
-                    updated: '13/05/2021 17:50:23'
-                }, {
-                    id: 11,
-                    points: 6,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '6/04/2021 17:50:23',
-                    updated: '6/04/2021 17:50:23'
-                }, {
-                    id: 12,
-                    points: 6,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '4/07/2021 17:50:23',
-                    updated: '4/07/2021 17:50:23'
-                }, {
-                    id: 13,
-                    points: 6,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '3/07/2021 17:50:23',
-                    updated: '3/07/2021 17:50:23'
-                }, {
-                    id: 14,
-                    points: 6,
-                    name: 'Hacker News',
-                    webSite: "https://www.youtube.com/",
-                    created: '26/06/2021 17:50:23',
-                    updated: '26/06/2021 17:50:23'
-                }
-            ]));*/
-            localStorage.setItem('data', JSON.stringify([
+        if (getDummyData() === null) {
+            setDummyData([
                 {
                     id: 1,
                     points: 6,
@@ -239,12 +131,11 @@ export default class App extends Component {
                     created: '07.03.2021 17:50:23',
                     updated: '07.03.2021 17:50:23'
                 }
-            ]));
+            ]);
         }
     }
 
     deleteCardConfirm = (cardData) => {
-        console.log("confirm çalıştı");
         this.setState({
             ...this.state,
             cardData: cardData,
@@ -253,9 +144,8 @@ export default class App extends Component {
     }
 
     deleteCard = async () => {
-        console.log("silme çalıştı");
         let filterData = this.state.data.filter(x => x.id != this.state.cardData.id);
-        localStorage.setItem("data", JSON.stringify(filterData));
+        setDummyData(filterData);
         await this.setState({
             data: filterData,
             showToast: true,
@@ -267,7 +157,7 @@ export default class App extends Component {
         cardData.points += 1;
         cardData.updated = getDateNow(new Date());
         this.state.data.splice(this.state.data.findIndex(x => x.id == cardData.id), 1, cardData);
-        localStorage.setItem('data', JSON.stringify(this.state.data));
+        setDummyData(this.state.data);
         /* this.setState({
              cardData
          });*/
@@ -290,7 +180,7 @@ export default class App extends Component {
         cardData.points -= 1;
         cardData.updated = getDateNow(new Date());
         this.state.data.splice(this.state.data.findIndex(x => x.id == cardData.id), 1, cardData);
-        localStorage.setItem('data', JSON.stringify(this.state.data));
+        setDummyData(this.state.data);
         /*this.setState({
             cardData
         });*/
@@ -304,11 +194,9 @@ export default class App extends Component {
         await this.setState({
             data: sortData
         });
-        console.log("App Sort ", sortData);
     }
 
     render() {
-        console.log("App Render", this.state.data);
         return (
             <>
                 <Container> <Router>
